@@ -41,9 +41,9 @@ namespace AlMaximoTI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> guardarEmpleado([FromBody] Empleado modelo)
+        public async Task<IActionResult> InsertarActualizarProducto([FromBody] Producto modelo)
         {
-            bool _resultado = await _empleadoRepository.Guardar(modelo);
+            bool _resultado = await _productoRepository.Guardar(modelo);
 
             if (_resultado)
                 return StatusCode(StatusCodes.Status200OK, new { valor = _resultado, msg = "ok" });

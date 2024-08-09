@@ -45,7 +45,7 @@ namespace AlMaximoTI.Repositorios.Implementacion
             throw new NotImplementedException();
         }
 
-        public Task<List<ProductoProveedor>> ObtenerProductos(string clave, int tipoProducto)
+        public Task<List<ProductoProveedor>> ObtenerProductos(string clave, int? tipoProducto)
         {
             throw new NotImplementedException();
         }
