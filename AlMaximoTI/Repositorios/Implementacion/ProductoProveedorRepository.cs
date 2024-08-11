@@ -14,13 +14,13 @@ namespace AlMaximoTI.Repositorios.Implementacion
             _conexion = configuration.GetConnectionString("conexion");
         }
 
-        public async Task<List<ProductoProveedor>> Lista()
+        public async Task<List<ProductoProveedor>> ObtenerTodos()
         {
             List<ProductoProveedor> _lista = new List<ProductoProveedor>();
             using (var conexion = new SqlConnection(_conexion))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("sp_ProductoProveedor", conexion);
+                SqlCommand cmd = new SqlCommand("sp_AllProductsSupplier", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = await cmd.ExecuteReaderAsync())
@@ -29,8 +29,12 @@ namespace AlMaximoTI.Repositorios.Implementacion
                     {
                         _lista.Add(new ProductoProveedor 
                         {
-                            Producto = dr["Producto"].ToString(),
-                            Proveedor = dr["Proveedor"].ToString(),
+                            ProductoId = Convert.ToInt32(dr["ProductoId"]),
+                            refProveedor = new Proveedor
+                            {
+                                Id = Convert.ToInt32(dr["ProveedorId"]),
+                                Nombre = dr["Nombre"].ToString(),
+                            },
                             ClaveProveedor = dr["Clave"].ToString(),
                             Costo = Convert.ToDecimal(dr["Costo"])
                        
@@ -45,7 +49,7 @@ namespace AlMaximoTI.Repositorios.Implementacion
             throw new NotImplementedException();
         }
 
-        public Task<List<ProductoProveedor>> ObtenerProductos(string clave, int? tipoProducto)
+        public Task<List<ProductoProveedor>> Buscar(string clave, string tipo)
         {
             throw new NotImplementedException();
         }

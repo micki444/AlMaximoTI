@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IGenericRepository<ProductoProveedor>, ProductoProveedorRepository>();
 builder.Services.AddScoped<IGenericRepository<Producto>, ProductoRepository>();
+builder.Services.AddScoped<IGenericRepository<TipoProducto>, TipoProductoRepository>();
 
 var app = builder.Build();
 
