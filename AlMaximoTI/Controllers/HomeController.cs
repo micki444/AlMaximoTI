@@ -77,7 +77,7 @@ namespace AlMaximoTI.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> eliminarProducto(int idProducto)
+        public async Task<IActionResult> EliminarProducto(int idProducto)
         {
             bool _resultado = await _productoRepository.Eliminar(idProducto);
 

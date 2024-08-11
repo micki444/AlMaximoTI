@@ -83,28 +83,54 @@ function MostrarProductos() {
 }
 
 
-$(document).on("click", ".boton-nuevo-empleado", function () {
 
-    _modeloEmpleado.idEmpleado = 0;
-    _modeloEmpleado.nombreCompleto = "";
-    _modeloEmpleado.idDepartamento = 0;
-    _modeloEmpleado.sueldo = 0;
-    _modeloEmpleado.fechaContrato = "";
+function Agregar() {
 
-    MostrarModal();
+    $("#txtNombreCompleto").val(_modeloEmpleado.nombreCompleto);
+    $("#cboDepartamento").val(_modeloEmpleado.idDepartamento == 0 ? $("#cboDepartamento option:first").val() : _modeloEmpleado.idDepartamento)
+    $("#txtSueldo").val(_modeloEmpleado.sueldo);
+    $("#txtFechaContrato").val(_modeloEmpleado.fechaContrato)
 
-})
+
+    $("#modalEmpleado").modal("show");
+
+}
+
+
+
+$(document).on("click", ".boton-nuevo-producto", function () {
+    // Inicializa el modelo del producto
+    _modeloProducto.idProducto = 0;
+    _modeloProducto.clave = "";
+    _modeloProducto.nombre = "";
+    _modeloProducto.refTipoProducto.id = 0;
+    _modeloProducto.refTipoProducto.nombre = "";
+    _modeloProducto.esActivo = 0;
+    _modeloProducto.precio = 0.0;
+    _modeloProducto.proveedores = [{
+        productoId: 0,
+        refProveedor: {
+            id: 0,
+            nombre: ""
+        },
+        claveProveedor: "",
+        costo: 0.0
+    }];
+
+    // Redirige a la página de edición del producto
+    window.location.href = "/Producto/Crear";
+});
 
 $(document).on("click", ".boton-editar-empleado", function () {
 
     const _empleado = $(this).data("dataEmpleado");
 
 
-    _modeloEmpleado.idEmpleado = _empleado.idEmpleado;
-    _modeloEmpleado.nombreCompleto = _empleado.nombreCompleto;
-    _modeloEmpleado.idDepartamento = _empleado.refDepartamento.idDepartamento;
-    _modeloEmpleado.sueldo = _empleado.sueldo;
-    _modeloEmpleado.fechaContrato = _empleado.fechaContrato;
+    _modeloProducto.idEmpleado = _empleado.idEmpleado;
+    _modeloProducto.nombreCompleto = _empleado.nombreCompleto;
+    _modeloProducto.idDepartamento = _empleado.refDepartamento.idDepartamento;
+    _modeloProducto.sueldo = _empleado.sueldo;
+    _modeloProducto.fechaContrato = _empleado.fechaContrato;
 
     MostrarModal();
 
@@ -171,13 +197,13 @@ $(document).on("click", ".boton-guardar-cambios-empleado", function () {
 })
 
 
-$(document).on("click", ".boton-eliminar-empleado", function () {
+$(document).on("click", ".boton-eliminar-producto", function () {
 
-    const _empleado = $(this).data("dataEmpleado");
+    const _producto = $(this).data("dataProducto");
 
     Swal.fire({
         title: "Esta seguro?",
-        text: `Eliminar empleado "${_empleado.nombreCompleto}"`,
+        text: `Eliminar producto "${_producto.nombre}"`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -188,7 +214,7 @@ $(document).on("click", ".boton-eliminar-empleado", function () {
 
         if (result.isConfirmed) {
 
-            fetch(`/Home/eliminarEmpleado?idEmpleado=${_empleado.idEmpleado}`, {
+            fetch(`/Home/EliminarProducto?idEmpleado=${_producto.idProducto}`, {
                 method: "DELETE"
             })
                 .then(response => {

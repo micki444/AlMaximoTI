@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Editar Producto";
+}
+
+<h2>Editar Producto</h2>
+
+<form id="editarForm">
+    <input type="hidden" id="id" name="id" value="@Model.Id">
+    <div class="form-group">
+        <label for="clave">Clave</label>
+        <input type="text" class="form-control" id="clave" name="clave" value="@Model.Clave" required>
+    </div>
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" value="@Model.Nombre" required>
+    </div>
+    <div class="form-group">
+        <label for="tipo">Tipo</label>
+        <select class="form-control" id="tipo" name="tipo" required>
+            <!-- Opciones -->
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="precio">Precio</label>
+        <input type="number" class="form-control" id="precio" name="precio" value="@Model.Precio" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+@section Scripts {
+    <script src="~/js/editar.js"></script>
+}
